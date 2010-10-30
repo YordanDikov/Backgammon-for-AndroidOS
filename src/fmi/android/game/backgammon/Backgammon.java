@@ -1,4 +1,5 @@
-package fmi.android.game.backgammon_for_androidos;
+package fmi.android.game.backgammon;
+
 import android.app.Activity;
 import android.os.Bundle;
 

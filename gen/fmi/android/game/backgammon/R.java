@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package fmi.android.game.backgammon_for_androidos;
+package fmi.android.game.backgammon;
 
 public final class R {
     public static final class attr {
