@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Backgammon!</string>
-    <string name="app_name">Backgammon</string>
+    <string name="app_name">Backgammon Game</string>
+    <string name="game_activity_name">Backgammon Board</string>
+    <string name="options_activity_name">Options</string>
+    
+    <string name="start_game">Start Game</string>
+    <string name="options">Options</string>
 </resources>
