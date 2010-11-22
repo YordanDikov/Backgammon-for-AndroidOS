@@ -6,4 +6,12 @@
     
     <string name="start_game">Start Game</string>
     <string name="options">Options</string>
+    
+    <string name="game_types_dialog_title">Select game type</string>
+    
+    <string-array name="game_types">
+     <item>Single Phone</item>
+     <item>Bluetooth</item>
+     <item>Wifi Adhoc</item>
+    </string-array>
 </resources>
