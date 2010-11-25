@@ -1,6 +1,6 @@
 package fmi.android.game.backgammon.client;
 
-import fmi.android.game.backgammon.exception.MoveNotLegalException;
+import fmi.android.game.backgammon.*;
 
 /**
  * Board places are numbered from 1 to 24. By number 1 is marked the place,
@@ -11,15 +11,20 @@ import fmi.android.game.backgammon.exception.MoveNotLegalException;
  */
 public class Board {
 
+	// ----------------------------------------
+	// CLASS CONSTANTS
+	// ----------------------------------------
+
+	private static final byte SINGLE_BLACK_PIECE = -1;
+	private static final byte SINGLE_WHITE_PIECE = 1;
+	private static final byte[] BACKGAMMON_STARTING_TABLE = { 0, -2, 0, 0, 0,
+			0, 5, 0, 3, 0, 0, 0, -5, 5, 0, 0, 0, -3, 0, -5, 0, 0, 0, 0, 2 };
+
 	private byte[] boardPlaces;
 	private byte hitWhite;
 	private byte hitBlack;
 	private byte takenWhite; // are those two
 	private byte takenBlack; // needed?
-	private static final byte SINGLE_BLACK_PIECE = -1;
-	private static final byte SINGLE_WHITE_PIECE = 1;
-	public static final byte[] BACKGAMMON_STARTING_TABLE = { 0, -2, 0, 0, 0, 0,
-			5, 0, 3, 0, 0, 0, -5, 5, 0, 0, 0, -3, 0, -5, 0, 0, 0, 0, 2 };
 
 	public Board() {
 		// sets the board in the initial game state
@@ -52,7 +57,9 @@ public class Board {
 		return boardPlaces.clone();
 	}
 
-	public void makeMove(byte from, byte with) throws MoveNotLegalException {
+	public void makeMove(Move move) throws MoveNotLegalException {
+		byte from = move.getPosition();
+		byte with = move.getDistance();
 
 		if (from > 24)
 			throw new MoveNotLegalException("Not existing starting place.");
@@ -61,7 +68,7 @@ public class Board {
 			throw new MoveNotLegalException("Board place is empty.");
 
 		if (boardPlaces[from] < 0) { // move from pile of black pieces
-			
+
 			// we believe, that GameLogic allows this move
 			if (from + with > 24) {
 				boardPlaces[from] -= SINGLE_BLACK_PIECE;

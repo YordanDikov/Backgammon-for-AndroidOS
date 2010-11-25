@@ -1,4 +1,4 @@
-package fmi.android.game.backgammon.exception;
+package fmi.android.game.backgammon;
 
 public class MoveNotLegalException extends Exception {
 	public MoveNotLegalException(){
