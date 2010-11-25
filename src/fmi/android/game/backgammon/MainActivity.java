@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 	 * this is the unique identifier for the game type chooser dialog the dialog
 	 * is prompted to the user when he hits the start button
 	 */
-	private static final int GAME_TYPE_DIALOG = 1;
+	private static final int GAME_TYPE_DIALOG = -1;
 
 	// constants for the different game types
 	private static final int SINGLE_PHONE = 0;
@@ -62,8 +62,8 @@ public class MainActivity extends Activity {
 		// for now, handle the click event like that
 		// but later will use better ways ;)
 
-		final Button start = (Button) findViewById(R.id.start_game_button);
-		start.setOnClickListener(new OnClickListener() {
+		final Button startButton = (Button) findViewById(R.id.start_game_button);
+		startButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -72,8 +72,8 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final Button options = (Button) findViewById(R.id.options_button);
-		options.setOnClickListener(new OnClickListener() {
+		final Button optionsButton = (Button) findViewById(R.id.options_button);
+		optionsButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
