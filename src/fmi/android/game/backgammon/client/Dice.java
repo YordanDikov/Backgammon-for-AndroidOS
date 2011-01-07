@@ -8,7 +8,8 @@ import java.util.Random;
 public class Dice {
 
 	private Random generator;
-
+	private byte value;
+	
 	public Dice() {
 		generator = new Random();
 	}
@@ -18,8 +19,11 @@ public class Dice {
 	 * java.util.Random class and returns the value as result.
 	 */
 	public byte roll() {
-		byte value = (byte) (generator.nextInt(6) + 1);
+		value = (byte) (generator.nextInt(6) + 1);
 		return value;
 	}
 
+	public byte getValue(){
+		return value;
+	}
 }

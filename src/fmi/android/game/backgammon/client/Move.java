@@ -11,24 +11,24 @@ public class Move {
 	 * Represents the place on the board where is the piece that is about to be
 	 * moved.
 	 */
-	// todo think of convenient way to represent the position of the hit pieces
-	private byte position;
+	// TODO think of convenient way to represent the position of the hit pieces
+	private byte start;
 	/**
-	 * Represents the number of places the piece is about to be moved.
+	 * Represents the place on the board where the piece should land.
 	 */
-	private byte distance;
+	private byte end;
 
 	public Move(byte position, byte distance) {
-		this.position = position;
-		this.distance = distance;
+		this.start = position;
+		this.end = distance;
 	}
 
-	public byte getPosition() {
-		return this.position;
+	public byte getStart() {
+		return this.start;
 	}
 
-	public byte getDistance() {
-		return this.distance;
+	public byte getEnd() {
+		return this.end;
 	}
 
 }

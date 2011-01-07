@@ -15,8 +15,9 @@ public class Board {
 	// CLASS CONSTANTS
 	// ----------------------------------------
 
-	private static final byte SINGLE_BLACK_PIECE = -1;
-	private static final byte SINGLE_WHITE_PIECE = 1;
+	public static final byte BLACK_PIECE = -1;
+	public static final byte WHITE_PIECE = 1;
+	public static final byte EMPTY_SPACE = 0;
 	private static final byte[] BACKGAMMON_STARTING_TABLE = { 0, -2, 0, 0, 0,
 			0, 5, 0, 3, 0, 0, 0, -5, 5, 0, 0, 0, -3, 0, -5, 0, 0, 0, 0, 2 };
 
@@ -57,55 +58,87 @@ public class Board {
 		return boardPlaces.clone();
 	}
 
+	public boolean pieceGoesOut(Move move){
+		
+		byte startPosition = move.getStart();
+		byte endPosition = move.getEnd();
+		
+		//black piece going out of the field
+		if(boardPlaces[startPosition]<0)
+			if(endPosition>24) return true;
+		
+		//white piece going out of the field
+		if(boardPlaces[startPosition]>0)
+			if(endPosition<1) return true;
+		
+		return false;
+	}
+	
 	public void makeMove(Move move) throws MoveNotLegalException {
-		byte from = move.getPosition();
-		byte with = move.getDistance();
+		byte start = move.getStart();
+		byte end = move.getEnd();
 
-		if (from > 24)
+		if (start > 24)
 			throw new MoveNotLegalException("Not existing starting place.");
 
-		if (boardPlaces[from] == 0)
+		if (boardPlaces[start] == 0)
 			throw new MoveNotLegalException("Board place is empty.");
 
-		if (boardPlaces[from] < 0) { // move from pile of black pieces
+		if (boardPlaces[start] < 0) { // move from pile of black pieces
 
 			// we believe, that GameLogic allows this move
-			if (from + with > 24) {
-				boardPlaces[from] -= SINGLE_BLACK_PIECE;
+			if (end > 24) {
+				boardPlaces[start] -= BLACK_PIECE;
 				takenBlack++;
 				return;
 			}
-			if (boardPlaces[from + with] > 1)
+
+			if (boardPlaces[end] > WHITE_PIECE)
 				throw new MoveNotLegalException();
-			if (boardPlaces[from + with] == SINGLE_WHITE_PIECE) {
+
+			
+			if (boardPlaces[end] == WHITE_PIECE) {
 				hitWhite++;
-				boardPlaces[from] -= SINGLE_BLACK_PIECE;
-				boardPlaces[from + with] = SINGLE_BLACK_PIECE;
+				boardPlaces[start] -= BLACK_PIECE;
+				boardPlaces[end] = BLACK_PIECE;
 				return;
 			}
-			boardPlaces[from] -= SINGLE_BLACK_PIECE;
-			boardPlaces[from + with] += SINGLE_BLACK_PIECE;
+			boardPlaces[start] -= BLACK_PIECE;
+			boardPlaces[end] += BLACK_PIECE;
 			return;
 		}
 
 		// else the move is from a pile of white pieces
 
-		if (from - with < 1) {// we believe, that GameLogic allows this move
-			boardPlaces[from] -= SINGLE_WHITE_PIECE;
+		if (end < 1) {// we believe, that GameLogic allows this move
+			boardPlaces[start] -= WHITE_PIECE;
 			takenWhite++;
 			return;
 		}
-		if (boardPlaces[from - with] < SINGLE_BLACK_PIECE)
+		if (boardPlaces[end] < BLACK_PIECE)
 			throw new MoveNotLegalException();
-		if (boardPlaces[from - with] == SINGLE_BLACK_PIECE) {
+		
+		if (boardPlaces[end] == BLACK_PIECE) {
 			hitBlack++;
-			boardPlaces[from] -= SINGLE_WHITE_PIECE;
-			boardPlaces[from + with] = SINGLE_WHITE_PIECE;
+			boardPlaces[start] -= WHITE_PIECE;
+			boardPlaces[end] = WHITE_PIECE;
 			return;
 		}
-		boardPlaces[from] -= SINGLE_WHITE_PIECE;
-		boardPlaces[from + with] += SINGLE_WHITE_PIECE;
+		boardPlaces[start] -= WHITE_PIECE;
+		boardPlaces[end] += WHITE_PIECE;
 		return;
 
+	}
+
+	public byte getPiecesColor(int position)
+	{
+		if(boardPlaces[position]>0) return WHITE_PIECE;
+		if(boardPlaces[position]<0) return BLACK_PIECE;
+		return EMPTY_SPACE;
+	}
+	
+	public byte getPiecesCount(int position)
+	{
+		return (byte) Math.abs(boardPlaces[position]);
 	}
 }
